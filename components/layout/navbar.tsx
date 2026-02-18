@@ -23,7 +23,7 @@ export function Navbar() {
         <Link href="/" className="flex items-center gap-2">
           <RealtekLogo />
           <span className="text-lg font-bold tracking-tight text-card">
-            Realteek
+            Quinland Grup
           </span>
         </Link>
 

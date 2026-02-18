@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/layout/navbar"
+import { Footer } from "@/components/layout/footer"
 import { HeroSection } from "@/components/hero/hero-section"
 import { AboutSection } from "@/components/about/about-section"
 import { PropertiesSection } from "@/components/properties/properties-section"
@@ -22,6 +23,7 @@ export default function Home() {
         <EventsSection />
         <FaqSection />
       </main>
+      <Footer />
     </>
   )
 }
