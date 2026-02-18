@@ -33,9 +33,10 @@ export function Navbar() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="text-sm font-medium text-card/90 transition-colors hover:text-card"
+                className="group relative text-sm font-medium text-card/90 transition-colors hover:text-card"
               >
                 {link.label}
+                <span className="absolute inset-x-0 -bottom-1 h-0.5 origin-left scale-x-0 bg-card transition-transform duration-300 group-hover:scale-x-100" />
               </Link>
             </li>
           ))}
