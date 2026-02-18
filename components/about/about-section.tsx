@@ -48,6 +48,7 @@ export function AboutSection() {
           width={1400}
           height={600}
           className="h-[280px] w-full object-cover sm:h-[320px] lg:h-[360px]"
+          loading="eager"
           priority
         />
 
