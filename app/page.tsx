@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/layout/navbar"
 import { HeroSection } from "@/components/hero/hero-section"
 import { AboutSection } from "@/components/about/about-section"
+import { PropertiesSection } from "@/components/properties/properties-section"
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
         {/* Spacer agar search bar tidak tertutup konten berikutnya */}
         <div className="h-16" />
         <AboutSection />
+        <PropertiesSection />
       </main>
     </>
   )
