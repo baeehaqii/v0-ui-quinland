@@ -52,7 +52,7 @@ export function AboutSection() {
         />
 
         {/* Gradient overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 
         {/* Animated text overlay */}
         <div className="absolute inset-x-0 bottom-0 flex flex-col items-center px-6 pb-8 sm:px-10 sm:pb-12 lg:px-16">
