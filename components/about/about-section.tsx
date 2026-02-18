@@ -39,7 +39,7 @@ export function AboutSection() {
   const [showDescription, setShowDescription] = useState(false)
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       {/* Image with overlay text */}
       <div className="relative overflow-hidden rounded-2xl">
         <Image
@@ -47,7 +47,7 @@ export function AboutSection() {
           alt="Modern luxury house with contemporary architecture"
           width={1400}
           height={600}
-          className="h-[340px] w-full object-cover sm:h-[400px] lg:h-[460px]"
+          className="h-[280px] w-full object-cover sm:h-[320px] lg:h-[360px]"
           priority
         />
 

@@ -9,7 +9,7 @@ export default function Home() {
       <main>
         <HeroSection />
         {/* Spacer agar search bar tidak tertutup konten berikutnya */}
-        <div className="h-24" />
+        <div className="h-16" />
         <AboutSection />
       </main>
     </>
