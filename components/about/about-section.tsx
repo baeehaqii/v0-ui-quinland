@@ -41,13 +41,13 @@ export function AboutSection() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Image with overlay text */}
-      <div className="relative overflow-hidden rounded-3xl">
+      <div className="relative overflow-hidden rounded-2xl">
         <Image
           src="/images/about-house.jpg"
           alt="Modern luxury house with contemporary architecture"
           width={1400}
           height={600}
-          className="h-[400px] w-full object-cover sm:h-[480px] lg:h-[540px]"
+          className="h-[340px] w-full object-cover sm:h-[400px] lg:h-[460px]"
           priority
         />
 
@@ -55,8 +55,8 @@ export function AboutSection() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
         {/* Animated text overlay */}
-        <div className="absolute inset-x-0 bottom-0 flex flex-col items-center px-6 pb-10 sm:pb-14">
-          <div className="relative min-h-[80px] sm:min-h-[100px]">
+        <div className="absolute inset-x-0 bottom-0 flex flex-col items-center px-6 pb-8 sm:px-10 sm:pb-12 lg:px-16">
+          <div className="relative w-full min-h-[80px] sm:min-h-[100px]">
             {/* ABOUT US title */}
             <h2
               className={`text-center font-sans text-5xl font-bold tracking-wider text-white uppercase transition-all duration-700 ease-in-out sm:text-7xl lg:text-8xl ${
@@ -70,7 +70,7 @@ export function AboutSection() {
 
             {/* Description text */}
             <p
-              className={`absolute inset-0 flex items-center text-center text-sm leading-relaxed font-medium text-white/90 transition-all duration-700 ease-in-out sm:text-base lg:text-lg ${
+              className={`absolute inset-0 flex items-center text-left text-sm leading-relaxed font-medium text-white/90 transition-all duration-700 ease-in-out sm:text-base lg:text-lg ${
                 showDescription
                   ? "translate-y-0 opacity-100"
                   : "-translate-y-4 opacity-0"
@@ -92,14 +92,22 @@ export function AboutSection() {
       </div>
 
       {/* Feature cards */}
-      <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        {FEATURES.map((feature) => (
-          <FeatureCard
+      <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0">
+        {FEATURES.map((feature, index) => (
+          <div
             key={feature.title}
-            icon={feature.icon}
-            title={feature.title}
-            description={feature.description}
-          />
+            className={`px-6 ${
+              index < FEATURES.length - 1
+                ? "border-b border-border pb-8 sm:border-b-0 lg:border-r lg:pb-0"
+                : ""
+            } ${index % 2 === 0 && index < FEATURES.length - 1 ? "sm:border-r sm:pb-0" : ""}`}
+          >
+            <FeatureCard
+              icon={feature.icon}
+              title={feature.title}
+              description={feature.description}
+            />
+          </div>
         ))}
       </div>
     </section>
