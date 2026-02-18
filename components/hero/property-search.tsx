@@ -48,7 +48,7 @@ export function PropertySearch() {
       <div className="flex flex-col items-stretch gap-3 rounded-2xl bg-card p-4 shadow-xl sm:flex-row sm:items-center sm:rounded-full sm:p-2">
         {/* Location */}
         <SearchSelect
-          icon={<MapPin className="size-4 text-muted-foreground" />}
+          icon={<MapPin className="size-5 shrink-0 text-muted-foreground" />}
           value={location}
           onChange={setLocation}
           placeholder="Location"
@@ -59,7 +59,7 @@ export function PropertySearch() {
 
         {/* Property Type */}
         <SearchSelect
-          icon={<Building2 className="size-4 text-muted-foreground" />}
+          icon={<Building2 className="size-5 shrink-0 text-muted-foreground" />}
           value={propertyType}
           onChange={setPropertyType}
           placeholder="Property Type"
@@ -70,7 +70,7 @@ export function PropertySearch() {
 
         {/* Project */}
         <SearchSelect
-          icon={<FolderKanban className="size-4 text-muted-foreground" />}
+          icon={<FolderKanban className="size-5 shrink-0 text-muted-foreground" />}
           value={project}
           onChange={setProject}
           placeholder="Project"
@@ -81,7 +81,7 @@ export function PropertySearch() {
 
         {/* Price Range */}
         <SearchSelect
-          icon={<DollarSign className="size-4 text-muted-foreground" />}
+          icon={<DollarSign className="size-5 shrink-0 text-muted-foreground" />}
           value={priceRange}
           onChange={setPriceRange}
           placeholder="Price Range"
@@ -114,19 +114,22 @@ function SearchSelect({
   options: string[]
 }) {
   return (
-    <div className="relative flex min-w-0 flex-1 items-center gap-2 rounded-full px-4 py-2">
+    <div className="relative flex min-w-0 flex-1 items-center gap-3 rounded-full px-4 py-2">
       {icon}
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full min-w-0 cursor-pointer appearance-none bg-transparent text-sm text-foreground outline-none"
+        className="w-full min-w-0 cursor-pointer appearance-none bg-transparent text-sm font-medium outline-none"
+        style={{
+          color: value ? "inherit" : "hsl(var(--muted-foreground))",
+        }}
         aria-label={placeholder}
       >
         <option value="" disabled>
           {placeholder}
         </option>
         {options.map((opt) => (
-          <option key={opt} value={opt}>
+          <option key={opt} value={opt} className="text-foreground">
             {opt}
           </option>
         ))}
@@ -148,7 +151,7 @@ function Divider() {
 function ChevronIcon() {
   return (
     <svg
-      className="pointer-events-none size-4 shrink-0 text-muted-foreground"
+      className="pointer-events-none size-5 shrink-0 text-muted-foreground"
       viewBox="0 0 20 20"
       fill="currentColor"
       aria-hidden="true"
