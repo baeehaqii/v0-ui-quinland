@@ -29,16 +29,24 @@ export function PropertyCard({ property }: PropertyCardProps) {
           className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
 
-        {/* Glass overlay at bottom */}
-        <div className="absolute inset-x-0 bottom-0 m-3 rounded-xl border border-white/20 bg-white/15 p-4 backdrop-blur-md">
-          <div className="flex items-center gap-1.5 text-white">
-            <MapPin className="size-3.5 shrink-0" strokeWidth={2} />
-            <span className="truncate text-xs font-medium">{property.location}</span>
-          </div>
+        {/* Address pill - top right */}
+        <div className="absolute right-3 top-3 flex items-center gap-1.5 rounded-full border border-white/25 bg-white/20 px-3 py-1.5 backdrop-blur-md">
+          <MapPin className="size-3.5 shrink-0 text-white" strokeWidth={2} />
+          <span className="text-xs font-medium text-white">
+            {property.location}
+          </span>
+        </div>
 
-          <h3 className="mt-1.5 text-lg font-bold text-white">{property.name}</h3>
+        {/* Default state: Project name with bottom gradient */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent px-5 pb-5 pt-16 transition-opacity duration-400 ease-in-out group-hover:opacity-0">
+          <h3 className="text-xl font-bold text-white">{property.name}</h3>
+        </div>
 
-          <div className="mt-2 flex items-center gap-4 text-xs font-medium text-white/85">
+        {/* Hover state: Glass overlay with details */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 m-3 translate-y-3 rounded-xl border border-white/20 bg-white/15 p-4 opacity-0 backdrop-blur-md transition-all duration-400 ease-in-out group-hover:translate-y-0 group-hover:opacity-100">
+          <h3 className="text-lg font-bold text-white">{property.name}</h3>
+
+          <div className="mt-2 flex items-center gap-4 text-xs font-medium text-white/90">
             <span className="flex items-center gap-1.5">
               <BedDouble className="size-3.5 shrink-0" strokeWidth={2} />
               {property.bedrooms} Beds
