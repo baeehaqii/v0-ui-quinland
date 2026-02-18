@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from 'next'
-import { DM_Sans, Playfair_Display } from 'next/font/google'
+import { Plus_Jakarta_Sans, Playfair_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const dmSans = DM_Sans({
+const jakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  variable: '--font-dm-sans',
+  variable: '--font-jakarta',
 })
 
 const playfair = Playfair_Display({
@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${dmSans.variable} ${playfair.variable} font-sans antialiased`}
+        className={`${jakartaSans.variable} ${playfair.variable} font-sans antialiased`}
       >
         {children}
         <Analytics />

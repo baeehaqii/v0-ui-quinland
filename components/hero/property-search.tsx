@@ -1,18 +1,16 @@
 "use client"
 
 import { useState } from "react"
-import { MapPin, Building2, Home } from "lucide-react"
+import { MapPin, Building2, FolderKanban, DollarSign } from "lucide-react"
 
 const LOCATIONS = [
-  "New York",
-  "Los Angeles",
-  "Chicago",
-  "Miami",
-  "San Francisco",
-  "Seattle",
+  "Jakarta",
+  "Surabaya",
+  "Bandung",
+  "Bali",
+  "Yogyakarta",
+  "Medan",
 ] as const
-
-const LISTING_TYPES = ["Buy", "Sell", "Rent"] as const
 
 const PROPERTY_TYPES = [
   "House",
@@ -20,45 +18,74 @@ const PROPERTY_TYPES = [
   "Villa",
   "Condo",
   "Townhouse",
+  "Land",
+] as const
+
+const PROJECTS = [
+  "Grand Residence",
+  "The Green Park",
+  "Skyline Tower",
+  "Emerald Heights",
+  "Sunset Valley",
+] as const
+
+const PRICE_RANGES = [
+  "< 500 Jt",
+  "500 Jt - 1 M",
+  "1 M - 2 M",
+  "2 M - 5 M",
+  "> 5 M",
 ] as const
 
 export function PropertySearch() {
   const [location, setLocation] = useState("")
-  const [listingType, setListingType] = useState("Buy")
-  const [propertyType, setPropertyType] = useState("House")
+  const [propertyType, setPropertyType] = useState("")
+  const [project, setProject] = useState("")
+  const [priceRange, setPriceRange] = useState("")
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-4">
-      <div className="flex flex-col items-stretch gap-3 rounded-2xl bg-card p-3 shadow-xl sm:flex-row sm:items-center sm:rounded-full sm:p-2">
+    <div className="mx-auto w-full max-w-4xl px-4">
+      <div className="flex flex-col items-stretch gap-3 rounded-2xl bg-card p-4 shadow-xl sm:flex-row sm:items-center sm:rounded-full sm:p-2">
         {/* Location */}
         <SearchSelect
           icon={<MapPin className="size-4 text-muted-foreground" />}
           value={location}
           onChange={setLocation}
-          placeholder="Search location"
-          options={LOCATIONS.map((l) => l)}
+          placeholder="Location"
+          options={[...LOCATIONS]}
         />
 
         <Divider />
 
-        {/* Listing type */}
+        {/* Property Type */}
         <SearchSelect
           icon={<Building2 className="size-4 text-muted-foreground" />}
-          value={listingType}
-          onChange={setListingType}
-          placeholder="Type"
-          options={LISTING_TYPES.map((t) => t)}
+          value={propertyType}
+          onChange={setPropertyType}
+          placeholder="Property Type"
+          options={[...PROPERTY_TYPES]}
         />
 
         <Divider />
 
-        {/* Property type */}
+        {/* Project */}
         <SearchSelect
-          icon={<Home className="size-4 text-muted-foreground" />}
-          value={propertyType}
-          onChange={setPropertyType}
-          placeholder="Property"
-          options={PROPERTY_TYPES.map((p) => p)}
+          icon={<FolderKanban className="size-4 text-muted-foreground" />}
+          value={project}
+          onChange={setProject}
+          placeholder="Project"
+          options={[...PROJECTS]}
+        />
+
+        <Divider />
+
+        {/* Price Range */}
+        <SearchSelect
+          icon={<DollarSign className="size-4 text-muted-foreground" />}
+          value={priceRange}
+          onChange={setPriceRange}
+          placeholder="Price Range"
+          options={[...PRICE_RANGES]}
         />
 
         {/* Submit */}
@@ -110,7 +137,12 @@ function SearchSelect({
 }
 
 function Divider() {
-  return <div className="hidden h-8 w-px bg-border sm:block" aria-hidden="true" />
+  return (
+    <div
+      className="hidden h-8 w-px bg-border sm:block"
+      aria-hidden="true"
+    />
+  )
 }
 
 function ChevronIcon() {
