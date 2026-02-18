@@ -77,14 +77,14 @@ export function NewsSection() {
               
               {/* Badge - Top Right */}
               <div className="absolute right-4 top-4">
-                <span className="inline-block rounded-full bg-black px-4 py-1.5 text-xs font-semibold text-white">
+                <span className="inline-block rounded-full bg-white/20 px-4 py-1.5 text-xs font-semibold text-white backdrop-blur-md">
                   {FEATURED_POST.category}
                 </span>
               </div>
               
               {/* Content overlay - Bottom */}
               <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
-                <h3 className="text-2xl font-bold tracking-tight text-white transition-colors group-hover:text-red-400 sm:text-3xl">
+                <h3 className="text-2xl font-bold tracking-tight text-white transition-colors group-hover:text-emerald-400 sm:text-3xl">
                   {FEATURED_POST.title}
                 </h3>
                 <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-white/90 sm:text-base">
@@ -112,13 +112,13 @@ export function NewsSection() {
                   />
                   {/* Badge - Top Right */}
                   <div className="absolute right-2 top-2">
-                    <span className="inline-block rounded-full bg-black px-3 py-1 text-xs font-semibold text-white">
+                    <span className="inline-block rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur-md">
                       {post.category}
                     </span>
                   </div>
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col justify-center">
-                  <h3 className="line-clamp-2 text-base font-bold tracking-tight text-foreground transition-colors group-hover:text-red-600 sm:text-lg">
+                  <h3 className="line-clamp-2 text-base font-bold tracking-tight text-foreground transition-colors group-hover:text-emerald-700 sm:text-lg">
                     {post.title}
                   </h3>
                   <p className="mt-1 line-clamp-2 text-xs text-muted-foreground sm:text-sm">
