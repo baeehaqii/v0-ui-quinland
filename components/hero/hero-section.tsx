@@ -40,7 +40,7 @@ export function HeroSection() {
   }, [next])
 
   return (
-    <section className="relative flex min-h-[100svh] flex-col lg:min-h-[105svh]">
+    <section className="relative flex min-h-[75vh] flex-col sm:min-h-[70vh] lg:min-h-[75vh]">
       {/* Slides */}
       {SLIDES.map((slide, index) => (
         <div
@@ -67,7 +67,7 @@ export function HeroSection() {
       <div className="h-24" />
 
       {/* Hero content */}
-      <div className="flex flex-1 flex-col items-center justify-center px-6 pb-40 text-center">
+      <div className="flex flex-1 flex-col items-center justify-center px-6 pb-24 text-center sm:pb-28 lg:pb-32">
         {SLIDES.map((slide, index) => (
           <div
             key={slide.heading}
@@ -91,7 +91,7 @@ export function HeroSection() {
       </div>
 
       {/* Slide indicators */}
-      <div className="absolute inset-x-0 bottom-28 flex items-center justify-center gap-2 sm:bottom-32">
+      <div className="absolute inset-x-0 bottom-20 flex items-center justify-center gap-2 sm:bottom-24">
         {SLIDES.map((slide, index) => (
           <button
             key={slide.image}
