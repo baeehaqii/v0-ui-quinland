@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { Menu, X } from "lucide-react"
@@ -16,21 +16,28 @@ const NAV_LINKS = [
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
-  
-  // Transparent on home page, glass effect on other pages
-  const isHomePage = pathname === "/"
-  const navBg = isHomePage 
-    ? "transparent" 
-    : "bg-slate-900/40 backdrop-blur-md"
-  
-  // Login button styling - transparent with border on home, white on other pages
-  const loginButtonClass = isHomePage
-    ? "border border-white text-white hover:bg-white/10"
-    : "bg-white text-slate-900 shadow-sm hover:shadow-md"
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 40)
+    handleScroll()
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  // Default: fully transparent. On scroll: dark glass effect
+  const navBg = scrolled
+    ? "bg-slate-900/40 backdrop-blur-md shadow-lg"
+    : "bg-transparent"
+
+  // Login button: border-only when not scrolled, white fill when scrolled
+  const loginButtonClass = scrolled
+    ? "bg-white text-slate-900 shadow-sm hover:shadow-md"
+    : "border border-white/70 text-white hover:bg-white/10"
 
   return (
-    <nav className={`sticky top-0 z-50 ${navBg} transition-colors duration-300`}>
+    <nav className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${navBg}`}>
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
