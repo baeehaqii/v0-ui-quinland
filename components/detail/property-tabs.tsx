@@ -19,6 +19,9 @@ import {
   Home,
   MapPin,
   CalendarDays,
+  ZoomIn,
+  ZoomOut,
+  X,
 } from "lucide-react"
 
 /* ── Tabs ── */
@@ -72,8 +75,21 @@ interface PropertyTabsProps {
 export function PropertyTabs({ name, description }: PropertyTabsProps) {
   const [activeTab, setActiveTab] = useState<Tab>("Overview")
   const [expanded, setExpanded] = useState(false)
-  // "overview" = showing the scroll sections, otherwise the panel tab name
   const [view, setView] = useState<"overview" | "Lokasi" | "Property Progress">("overview")
+  const [denahModal, setDenahModal] = useState<{ name: string; image: string } | null>(null)
+  const [zoom, setZoom] = useState(1)
+
+  // Close modal on Escape key
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setDenahModal(null)
+        setZoom(1)
+      }
+    }
+    window.addEventListener("keydown", handleKey)
+    return () => window.removeEventListener("keydown", handleKey)
+  }, [])
   const isClickScrolling = useRef(false)
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({})
 
