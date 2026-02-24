@@ -11,15 +11,15 @@ export function ImageGallery({ images, projectName }: ImageGalleryProps) {
   const [main, secondary, tertiary] = images
 
   return (
-    <div className="grid grid-cols-1 gap-3 lg:grid-cols-3 lg:grid-rows-2">
+    <div className="grid grid-cols-1 gap-3 lg:grid-cols-3 lg:grid-rows-2 lg:max-h-[420px]">
       {/* Main large image */}
       <div className="relative overflow-hidden rounded-2xl lg:col-span-2 lg:row-span-2">
         <Image
           src={main}
           alt={`${projectName} - Main view`}
           width={900}
-          height={600}
-          className="h-[280px] w-full object-cover sm:h-[360px] lg:h-full"
+          height={420}
+          className="h-[240px] w-full object-cover sm:h-[300px] lg:h-full"
           priority
         />
         {/* WhatsApp button */}
