@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { MapPin, BedDouble, Bath, Ruler } from "lucide-react"
 
 export interface Property {
@@ -18,7 +19,7 @@ interface PropertyCardProps {
 
 export function PropertyCard({ property }: PropertyCardProps) {
   return (
-    <article className="group cursor-pointer">
+    <Link href={`/property/${property.id}`} className="group block">
       {/* Image container */}
       <div className="relative overflow-hidden rounded-2xl">
         <Image
@@ -62,6 +63,6 @@ export function PropertyCard({ property }: PropertyCardProps) {
           </div>
         </div>
       </div>
-    </article>
+    </Link>
   )
 }
