@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { Menu, X } from "lucide-react"
 
@@ -15,9 +16,16 @@ const NAV_LINKS = [
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const pathname = usePathname()
+  
+  // Transparent on home page, glass effect on other pages
+  const isHomePage = pathname === "/"
+  const navBg = isHomePage 
+    ? "transparent" 
+    : "bg-slate-900/40 backdrop-blur-md"
 
   return (
-    <nav className="sticky top-0 z-50 bg-slate-900 shadow-lg">
+    <nav className={`sticky top-0 z-50 ${navBg} transition-colors duration-300`}>
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
@@ -63,7 +71,7 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="border-t border-white/10 bg-slate-800 backdrop-blur-lg md:hidden">
+        <div className="border-t border-white/10 bg-slate-900/50 backdrop-blur-md md:hidden">
           <ul className="flex flex-col gap-1 px-6 py-4">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
