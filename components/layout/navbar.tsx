@@ -26,23 +26,35 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // Default: fully transparent. On scroll: dark glass effect
+  // Detail property pages: /property/[slug] — has white bg, needs dark text when not scrolled
+  const isDetailPage = /^\/property\/.+/.test(pathname)
+
+  // On scroll: always dark glass. Not scrolled: transparent (white text) except detail page (dark text)
   const navBg = scrolled
     ? "bg-slate-900/40 backdrop-blur-md shadow-lg"
     : "bg-transparent"
 
-  // Login button: border-only when not scrolled, white fill when scrolled
+  // Text color: black on detail pages when not scrolled, white everywhere else
+  const textColor = !scrolled && isDetailPage ? "text-slate-900" : "text-white"
+  const textColorMuted = !scrolled && isDetailPage ? "text-slate-700" : "text-white/80"
+  const hoverTextColor = !scrolled && isDetailPage ? "hover:text-slate-900" : "hover:text-white"
+  const underlineColor = !scrolled && isDetailPage ? "bg-slate-900" : "bg-white"
+  const mobileToggleColor = !scrolled && isDetailPage ? "text-slate-900" : "text-white"
+
+  // Login button
   const loginButtonClass = scrolled
     ? "bg-white text-slate-900 shadow-sm hover:shadow-md"
-    : "border border-white/70 text-white hover:bg-white/10"
+    : isDetailPage
+      ? "border border-slate-900/60 text-slate-900 hover:bg-slate-900/10"
+      : "border border-white/70 text-white hover:bg-white/10"
 
   return (
     <nav className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${navBg}`}>
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <RealtekLogo />
-          <span className="text-lg font-bold tracking-tight text-white">
+          <RealtekLogo color={!scrolled && isDetailPage ? "text-slate-900" : "text-white"} />
+          <span className={`text-lg font-bold tracking-tight transition-colors duration-500 ${textColor}`}>
             Quinland Grup
           </span>
         </Link>
@@ -53,10 +65,10 @@ export function Navbar() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="group relative text-sm font-medium text-white/80 transition-colors hover:text-white"
+                className={`group relative text-sm font-medium transition-colors duration-500 ${textColorMuted} ${hoverTextColor}`}
               >
                 {link.label}
-                <span className="absolute inset-x-0 -bottom-1 h-0.5 origin-left scale-x-0 bg-white transition-transform duration-300 group-hover:scale-x-100" />
+                <span className={`absolute inset-x-0 -bottom-1 h-0.5 origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100 ${underlineColor}`} />
               </Link>
             </li>
           ))}
@@ -73,7 +85,7 @@ export function Navbar() {
         {/* Mobile toggle */}
         <button
           type="button"
-          className="text-white md:hidden"
+          className={`md:hidden transition-colors duration-500 ${mobileToggleColor}`}
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
         >
@@ -112,7 +124,7 @@ export function Navbar() {
   )
 }
 
-function RealtekLogo() {
+function RealtekLogo({ color = "text-white" }: { color?: string }) {
   return (
     <svg
       width="28"
@@ -121,40 +133,12 @@ function RealtekLogo() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
+      className={`transition-colors duration-500 ${color}`}
     >
-      <rect
-        x="2"
-        y="8"
-        width="24"
-        height="18"
-        rx="2"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        className="text-white"
-      />
-      <path
-        d="M6 26V12L14 6L22 12V26"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-        className="text-white"
-      />
-      <path
-        d="M10 26V18H18V26"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-        className="text-white"
-      />
-      <line
-        x1="14"
-        y1="2"
-        x2="14"
-        y2="6"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        className="text-white"
-      />
+      <rect x="2" y="8" width="24" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M6 26V12L14 6L22 12V26" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M10 26V18H18V26" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      <line x1="14" y1="2" x2="14" y2="6" stroke="currentColor" strokeWidth="1.5" />
     </svg>
   )
 }
