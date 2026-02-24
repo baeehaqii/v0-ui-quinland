@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef, useCallback } from "react"
+import Image from "next/image"
 import {
   Facebook,
   Link2,
@@ -16,9 +17,18 @@ import {
   Bath,
   Ruler,
   Home,
+  MapPin,
+  CalendarDays,
 } from "lucide-react"
 
-const TABS = ["Overview", "Facilities", "Type Rumah", "Denah"] as const
+const TABS = [
+  "Overview",
+  "Facilities",
+  "Type Rumah",
+  "Denah",
+  "Lokasi",
+  "Property Progress",
+] as const
 type Tab = (typeof TABS)[number]
 
 const TAB_IDS: Record<Tab, string> = {
@@ -26,7 +36,42 @@ const TAB_IDS: Record<Tab, string> = {
   Facilities: "facilities",
   "Type Rumah": "type-rumah",
   Denah: "denah",
+  Lokasi: "lokasi",
+  "Property Progress": "property-progress",
 }
+
+const PROGRESS_DATA = [
+  {
+    month: "Oktober 2025",
+    image: "/images/progress-1.jpg",
+    label: "Land Clearing & Foundation",
+    percentage: 15,
+  },
+  {
+    month: "November 2025",
+    image: "/images/progress-2.jpg",
+    label: "Struktur & Framework",
+    percentage: 35,
+  },
+  {
+    month: "Desember 2025",
+    image: "/images/progress-3.jpg",
+    label: "Dinding & Atap",
+    percentage: 55,
+  },
+  {
+    month: "Januari 2026",
+    image: "/images/progress-4.jpg",
+    label: "Finishing Eksterior",
+    percentage: 78,
+  },
+  {
+    month: "Februari 2026",
+    image: "/images/progress-5.jpg",
+    label: "Serah Terima",
+    percentage: 95,
+  },
+]
 
 const FACILITIES = [
   { icon: ShieldCheck, label: "Security 24/7" },
@@ -280,6 +325,102 @@ export function PropertyTabs({ name, description }: PropertyTabsProps) {
                   <p className="mt-1 text-xs text-muted-foreground">
                     Coming Soon
                   </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Lokasi */}
+        <section id="lokasi" ref={setRef("lokasi")} className="scroll-mt-16">
+          <h2 className="text-2xl font-bold tracking-tight text-foreground">
+            Lokasi
+          </h2>
+          <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
+            <MapPin className="size-4 shrink-0" />
+            <span>Grand City Balikpapan, Kalimantan Timur, Indonesia</span>
+          </div>
+          <div className="mt-6 overflow-hidden rounded-xl border border-border">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.0456!2d116.8813!3d-1.2654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2df146f2f1ab0b0f%3A0x0!2sBalikpapan!5e0!3m2!1sid!2sid!4v1708000000000!5m2!1sid!2sid"
+              className="h-[320px] w-full sm:h-[400px]"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Lokasi Nordville - Grand City Balikpapan"
+            />
+          </div>
+        </section>
+
+        {/* Property Progress */}
+        <section
+          id="property-progress"
+          ref={setRef("property-progress")}
+          className="scroll-mt-16"
+        >
+          <h2 className="text-2xl font-bold tracking-tight text-foreground">
+            Property Progress
+          </h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Pantau perkembangan pembangunan kawasan setiap bulannya.
+          </p>
+
+          {/* Progress bar */}
+          <div className="mt-6 flex items-center gap-3">
+            <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
+              <div
+                className="h-full rounded-full bg-emerald-600 transition-all"
+                style={{
+                  width: `${PROGRESS_DATA[PROGRESS_DATA.length - 1].percentage}%`,
+                }}
+              />
+            </div>
+            <span className="text-sm font-semibold text-emerald-700">
+              {PROGRESS_DATA[PROGRESS_DATA.length - 1].percentage}%
+            </span>
+          </div>
+
+          {/* Monthly progress cards */}
+          <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {PROGRESS_DATA.map((item) => (
+              <div
+                key={item.month}
+                className="group overflow-hidden rounded-xl border border-border bg-card transition-shadow hover:shadow-md"
+              >
+                <div className="relative overflow-hidden">
+                  <Image
+                    src={item.image}
+                    alt={`Progress ${item.month} - ${item.label}`}
+                    width={400}
+                    height={260}
+                    className="h-[180px] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  {/* Month badge */}
+                  <div className="absolute left-3 top-3">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur-md">
+                      <CalendarDays className="size-3" />
+                      {item.month}
+                    </span>
+                  </div>
+                  {/* Progress badge */}
+                  <div className="absolute right-3 top-3">
+                    <span className="inline-block rounded-full bg-emerald-600 px-2.5 py-1 text-xs font-bold text-white">
+                      {item.percentage}%
+                    </span>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <h3 className="font-semibold text-foreground">
+                    {item.label}
+                  </h3>
+                  {/* Mini progress bar */}
+                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-muted">
+                    <div
+                      className="h-full rounded-full bg-emerald-600 transition-all"
+                      style={{ width: `${item.percentage}%` }}
+                    />
+                  </div>
                 </div>
               </div>
             ))}
