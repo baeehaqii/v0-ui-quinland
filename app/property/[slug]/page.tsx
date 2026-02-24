@@ -69,8 +69,8 @@ export default async function PropertyDetailPage() {
     <>
       <Navbar />
       <main className="bg-background">
-        {/* Breadcrumb */}
-        <div className="mx-auto max-w-7xl px-4 pb-4 pt-6 sm:px-6 lg:px-8">
+        {/* Breadcrumb – pt-24 accounts for the fixed navbar height */}
+        <div className="mx-auto max-w-7xl px-4 pb-4 pt-24 sm:px-6 lg:px-8">
           <nav aria-label="Breadcrumb">
             <ol className="flex flex-wrap items-center gap-1 text-sm">
               {BREADCRUMB.map((item, index) => {
