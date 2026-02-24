@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ChevronRight } from "lucide-react"
+import { Navbar } from "@/components/layout/navbar"
 import { ImageGallery } from "@/components/detail/image-gallery"
 import { PropertyTabs } from "@/components/detail/property-tabs"
 import { BookingSidebar } from "@/components/detail/booking-sidebar"
@@ -66,6 +67,7 @@ const BREADCRUMB = [
 export default async function PropertyDetailPage() {
   return (
     <>
+      <Navbar />
       <main className="bg-background">
         {/* Breadcrumb */}
         <div className="mx-auto max-w-7xl px-4 pb-4 pt-6 sm:px-6 lg:px-8">
