@@ -56,9 +56,9 @@ const FACILITIES = [
 ]
 
 const HOUSE_TYPES = [
-  { name: "Type 88", bedrooms: 3, bathrooms: 2, sqft: 88, description: "Cocok untuk keluarga muda dengan 3 kamar tidur dan 2 kamar mandi. Desain modern dan efisien." },
-  { name: "Type 117", bedrooms: 4, bathrooms: 3, sqft: 117, description: "Hunian luas dengan 4 kamar tidur dan 3 kamar mandi. Ruang tamu dan keluarga terpisah." },
-  { name: "Type 172", bedrooms: 5, bathrooms: 4, sqft: 172, description: "Tipe premium dengan 5 kamar tidur dan 4 kamar mandi. Dilengkapi ruang kerja dan balkon utama." },
+  { name: "Type 88", bedrooms: 3, bathrooms: 2, sqft: 88, description: "Cocok untuk keluarga muda dengan 3 kamar tidur dan 2 kamar mandi. Desain modern dan efisien.", denah: "/images/denah-88.jpg" },
+  { name: "Type 117", bedrooms: 4, bathrooms: 3, sqft: 117, description: "Hunian luas dengan 4 kamar tidur dan 3 kamar mandi. Ruang tamu dan keluarga terpisah.", denah: "/images/denah-117.jpg" },
+  { name: "Type 172", bedrooms: 5, bathrooms: 4, sqft: 172, description: "Tipe premium dengan 5 kamar tidur dan 4 kamar mandi. Dilengkapi ruang kerja dan balkon utama.", denah: "/images/denah-172.jpg" },
 ]
 
 /* ── Helpers ── */
@@ -240,16 +240,32 @@ export function PropertyTabs({ name, description }: PropertyTabsProps) {
           {/* Denah */}
           <section id="denah" ref={setRef("denah")} className="scroll-mt-16">
             <h2 className="text-2xl font-bold tracking-tight text-foreground">Denah</h2>
-            <p className="mt-4 text-sm text-muted-foreground">Denah rumah akan segera tersedia. Hubungi kami untuk informasi lebih lanjut.</p>
+            <p className="mt-2 text-sm text-muted-foreground">Klik gambar untuk melihat denah secara detail.</p>
             <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
               {HOUSE_TYPES.map((type) => (
-                <div key={type.name} className="flex aspect-[3/4] items-center justify-center rounded-xl border border-dashed border-border bg-muted/30">
-                  <div className="text-center">
-                    <Home className="mx-auto size-8 text-muted-foreground" strokeWidth={1} />
-                    <p className="mt-2 text-sm font-medium text-muted-foreground">Denah {type.name}</p>
-                    <p className="mt-1 text-xs text-muted-foreground">Coming Soon</p>
+                <button
+                  key={type.name}
+                  type="button"
+                  onClick={() => { setDenahModal({ name: type.name, image: type.denah }); setZoom(1) }}
+                  className="group relative overflow-hidden rounded-xl border border-border bg-muted/20 transition-all hover:border-foreground/30 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  aria-label={`Lihat denah ${type.name}`}
+                >
+                  <Image
+                    src={type.denah}
+                    alt={`Denah ${type.name}`}
+                    width={400}
+                    height={300}
+                    className="h-[200px] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="p-3 text-left">
+                    <p className="text-sm font-semibold text-foreground">Denah {type.name}</p>
+                    <p className="mt-0.5 text-xs text-muted-foreground">Klik untuk preview</p>
                   </div>
-                </div>
+                  {/* Hover overlay hint */}
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-300 group-hover:bg-black/20">
+                    <ZoomIn className="size-8 text-white opacity-0 drop-shadow-lg transition-opacity duration-300 group-hover:opacity-100" />
+                  </div>
+                </button>
               ))}
             </div>
           </section>
@@ -274,6 +290,80 @@ export function PropertyTabs({ name, description }: PropertyTabsProps) {
               referrerPolicy="no-referrer-when-downgrade"
               title="Lokasi Nordville - Grand City Balikpapan"
             />
+          </div>
+        </div>
+      )}
+
+      {/* ─── Denah Modal ─── */}
+      {denahModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
+          onClick={() => { setDenahModal(null); setZoom(1) }}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Denah ${denahModal.name}`}
+        >
+          {/* Modal box – stop propagation so clicking inside doesn't close */}
+          <div
+            className="relative flex max-h-[90vh] w-[90vw] max-w-3xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-border px-5 py-3">
+              <h3 className="font-semibold text-foreground">Denah {denahModal.name}</h3>
+              <div className="flex items-center gap-2">
+                {/* Zoom out */}
+                <button
+                  type="button"
+                  onClick={() => setZoom((z) => Math.max(0.5, +(z - 0.25).toFixed(2)))}
+                  disabled={zoom <= 0.5}
+                  className="flex size-8 items-center justify-center rounded-lg border border-border text-foreground transition-colors hover:bg-muted disabled:opacity-40"
+                  aria-label="Zoom out"
+                >
+                  <ZoomOut className="size-4" />
+                </button>
+                {/* Zoom level */}
+                <span className="w-12 text-center text-xs font-medium text-muted-foreground">
+                  {Math.round(zoom * 100)}%
+                </span>
+                {/* Zoom in */}
+                <button
+                  type="button"
+                  onClick={() => setZoom((z) => Math.min(3, +(z + 0.25).toFixed(2)))}
+                  disabled={zoom >= 3}
+                  className="flex size-8 items-center justify-center rounded-lg border border-border text-foreground transition-colors hover:bg-muted disabled:opacity-40"
+                  aria-label="Zoom in"
+                >
+                  <ZoomIn className="size-4" />
+                </button>
+                {/* Close */}
+                <button
+                  type="button"
+                  onClick={() => { setDenahModal(null); setZoom(1) }}
+                  className="ml-2 flex size-8 items-center justify-center rounded-lg border border-border text-foreground transition-colors hover:bg-muted"
+                  aria-label="Close"
+                >
+                  <X className="size-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Image area – scrollable when zoomed */}
+            <div className="overflow-auto bg-muted/30 p-4" style={{ maxHeight: "calc(90vh - 60px)" }}>
+              <div
+                className="flex origin-top-left items-center justify-center transition-transform duration-200"
+                style={{ transform: `scale(${zoom})`, transformOrigin: "top center" }}
+              >
+                <Image
+                  src={denahModal.image}
+                  alt={`Denah ${denahModal.name}`}
+                  width={800}
+                  height={600}
+                  className="rounded-lg object-contain"
+                  priority
+                />
+              </div>
+            </div>
           </div>
         </div>
       )}
