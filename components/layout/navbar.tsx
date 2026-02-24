@@ -23,6 +23,11 @@ export function Navbar() {
   const navBg = isHomePage 
     ? "transparent" 
     : "bg-slate-900/40 backdrop-blur-md"
+  
+  // Login button styling - transparent with border on home, white on other pages
+  const loginButtonClass = isHomePage
+    ? "border border-white text-white hover:bg-white/10"
+    : "bg-white text-slate-900 shadow-sm hover:shadow-md"
 
   return (
     <nav className={`sticky top-0 z-50 ${navBg} transition-colors duration-300`}>
@@ -53,7 +58,7 @@ export function Navbar() {
         {/* Login button */}
         <Link
           href="/login"
-          className="hidden rounded-full bg-white px-6 py-2 text-sm font-semibold text-slate-900 shadow-sm transition-shadow hover:shadow-md md:inline-block"
+          className={`hidden rounded-full px-6 py-2 text-sm font-semibold transition-all md:inline-block ${loginButtonClass}`}
         >
           Login
         </Link>
