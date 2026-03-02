@@ -51,7 +51,7 @@ export function NewsSection() {
           Latest News
         </h2>
         <Link
-          href="/news"
+          href="/artikel"
           className="group flex items-center gap-2 text-sm font-semibold text-red-600 transition-colors hover:text-red-700"
         >
           See All
