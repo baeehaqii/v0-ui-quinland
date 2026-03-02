@@ -5,6 +5,8 @@ import { ImageGallery } from "@/components/detail/image-gallery"
 import { PropertyTabs } from "@/components/detail/property-tabs"
 import { BookingSidebar } from "@/components/detail/booking-sidebar"
 import { PropertyCard, type Property } from "@/components/properties/property-card"
+import { PromoSection } from "@/components/promo/promo-section"
+import { FaqSection } from "@/components/faq/faq-section"
 import { Footer } from "@/components/layout/footer"
 
 /* ---------- Dummy data ---------- */
@@ -129,6 +131,16 @@ export default async function PropertyDetailPage() {
             ))}
           </div>
         </section>
+
+        {/* Promo Spesial */}
+        <div className="border-t border-border">
+          <PromoSection />
+        </div>
+
+        {/* FAQ */}
+        <div className="border-t border-border">
+          <FaqSection />
+        </div>
       </main>
 
       <Footer />
