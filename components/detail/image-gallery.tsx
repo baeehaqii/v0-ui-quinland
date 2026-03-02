@@ -210,25 +210,28 @@ export function ImageGallery({ images, projectName }: ImageGalleryProps) {
             <button
               type="button"
               onClick={() => goTo(activeIndex - 1)}
-              className="absolute left-2 flex size-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+              className="absolute left-2 z-10 flex size-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
               aria-label="Previous image"
             >
               <ChevronLeft className="size-6" />
             </button>
 
-            {/* Image */}
-            <div
-              className="flex items-center justify-center overflow-auto"
-              style={{ maxWidth: "100%", maxHeight: "100%" }}
-            >
-              <Image
+            {/* Image — uses natural aspect ratio via width/height auto */}
+            <div className="overflow-auto flex items-center justify-center w-full h-full">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src={images[activeIndex]}
                 alt={`${projectName} - Image ${activeIndex + 1}`}
-                width={1200}
-                height={800}
-                className="max-h-[75vh] w-auto rounded-lg object-contain transition-transform duration-200"
-                style={{ transform: `scale(${zoom})`, transformOrigin: "center center" }}
-                priority
+                className="rounded-lg transition-transform duration-200"
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "72vh",
+                  width: "auto",
+                  height: "auto",
+                  transform: `scale(${zoom})`,
+                  transformOrigin: "center center",
+                  display: "block",
+                }}
               />
             </div>
 
@@ -236,7 +239,7 @@ export function ImageGallery({ images, projectName }: ImageGalleryProps) {
             <button
               type="button"
               onClick={() => goTo(activeIndex + 1)}
-              className="absolute right-2 flex size-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+              className="absolute right-2 z-10 flex size-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
               aria-label="Next image"
             >
               <ChevronRight className="size-6" />
