@@ -9,9 +9,8 @@ const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Property", href: "/property" },
   { label: "Event & CSR", href: "/event-csr" },
-  { label: "Rent", href: "/rent" },
+  { label: "Artikel", href: "/artikel" },
   { label: "About Us", href: "/about" },
-  { label: "Contact", href: "/contact" },
 ] as const
 
 export function Navbar() {
